@@ -6,7 +6,7 @@ FROM Flights;
 
 /*2. Retard promig de sortida i arribada segons l’aeroport origen.*/
 
-SELECT Origin, AVG(ArrDelay) 
+SELECT Origin, AVG(ArrDelay),AVG(DepDelay) 
 FROM Flights 
 GROUP BY Origin 
 order by Origin;
@@ -24,10 +24,9 @@ ONT, 2000, 01, retard
 ONT, 2000, 02, retard
 etc.*/
 
-SELECT Origin, colYear, colMonth, ArrDelay  
+SELECT Origin,colMonth,colYear, AVG(ArrDelay)as retard
 FROM Flights 
-order by Origin 
-AND colMonth;
+GROUP BY Origin,colMonth,colYear;
 
 /*4. Retard promig d’arribada dels vols, per mesos i segons l’aeroport origen (mateixa
 consulta que abans i amb el mateix ordre). Però a més, ara volen que en comptes
@@ -35,11 +34,11 @@ del codi de l’aeroport es mostri el nom de la ciutat.
 Los Angeles, 2000, 01, retard
 Los Angeles, 2000, 02, retard*/
 
-SELECT USAirports.City, Flights.Origin, Flights.colYear, Flights.colMonth, Flights.ArrDelay  
-FROM Flights 
-inner join USAirports 
-on USAirports.IATA = Flights.Origin 
-order by Origin AND colMonth;
+SELECT USAirports.City, Flights.colYear, Flights.colMonth, avg(Flights.ArrDelay) 
+FROM USAirports 
+JOIN Flights 
+ON USAirports.IATA = Flights.Origin 
+GROUP BY USAirports.City, Flights.colYear, Flights.colMonth;
 
 /*5. Les companyies amb més vols cancelats. A més, han d’estar ordenades de forma
 que les companyies amb més cancelacions apareguin les primeres.*/
@@ -54,8 +53,7 @@ ORDER By Description ASC;
 /*6. L’identificador dels 10 avions que més kilòmetres han recorregut fent vols
 comercials:*/
 
-SELECT TailNum, sum(Distance) 
-as suma 
+SELECT TailNum, sum(Distance) as suma 
 FROM Flights 
 group by TailNum 
 ORDER BY suma 
