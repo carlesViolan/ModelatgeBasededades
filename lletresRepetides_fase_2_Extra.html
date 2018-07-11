@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Arrays</h2>
+
+<p id="demo"></p>
+
+
+<script>
+var nom = ["c",3,"r","l","e","s", "v",6,"o","l","a","n"];
+
+
+var text = "";
+var i;
+for (i = 0; i < nom.length; i++) {
+    
+    text += nom[i] + "<br>";
+
+    	if(nom[i]=="a" || nom[i]=="e" || nom[i]=="i" || nom[i]=="o" || nom[i]=="u"){
+
+    		console.log("es vocal :"+nom[i]);
+
+    	}else if(nom[i]/1==nom[i]){
+
+    		 console.log("los nombres no contienen números :"+nom[i]);
+
+    	 	}else{
+
+    		 console.log("es consonant :"+nom[i]);
+
+
+    	}
+
+
+    //console.log(nom[i]);
+}
+
+document.getElementById("demo").innerHTML = text;
+</script>
+
+</body>
+</html>
